@@ -1,34 +1,53 @@
 version: "3.8"
 services:
-  fast-api-app:
-    build: .
-    container_name: fapi-app-container
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: cjw-backend
     ports:
-      - "8080:8080"
+      - "8000:8000"
     volumes:
-      - ./:/usr/src/application:rw
-    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080", "--reload"]
+      - ./backend:/usr/src/app:rw
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/cjw_db
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: cjw-frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app:rw
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    depends_on:
+      - backend
 
   db:
-    image: mysql
+    image: postgres:15
+    container_name: cjw-db
     ports:
-        - "33061:3306"
-    # command: --init-file /data/application/init.sql
-    # volumes:
-    #     - ./init.sql:/data/application/init.sql
+      - "5432:5432"
     environment:
-        MYSQL_DATABASE: cjw_db
-        MYSQL_ROOT_USER: root
-        MYSQL_ROOT_PASSWORD: root
-        # MYSQL_USER: root
-        MYSQL_PASSWORD: root
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=cjw_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      # - ./backend/app/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./backend/app/db/init_extra.sql:/docker-entrypoint-initdb.d/init_extra.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
-  # cluster:
-  #   build: .
-  #   container_name: cluster_one
-  #   ports:
-  #     - "5001:5000"
-  #   volumes:
-  #     - ./:/usr/src/application:rw
+volumes:
+  postgres_data:

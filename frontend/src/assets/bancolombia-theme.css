@@ -1,0 +1,180 @@
+/* Bancolombia theme styles */
+:root {
+  --color-primary: #ff7f41;
+  --color-secondary: #0c3455;
+  --color-white: #ffffff;
+  --color-gray-light: #f4f6f8;
+  --color-gray: #e0e0e0;
+  --color-text: #333333;
+  --color-error: #dc3545;
+  --color-success: #28a745;
+}
+
+/* Layout styles */
+.bancolombia-theme {
+  background-color: var(--color-gray-light);
+}
+
+.bancolombia-header {
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bancolombia-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Component styles */
+.bancolombia-card {
+  background-color: var(--color-white);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.bancolombia-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--color-white);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bancolombia-table th {
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+  padding: 1rem;
+  text-align: left;
+  font-weight: 500;
+}
+
+.bancolombia-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--color-gray);
+}
+
+.bancolombia-table tr:last-child td {
+  border-bottom: none;
+}
+
+.bancolombia-table tr:hover {
+  background-color: var(--color-gray-light);
+}
+
+/* Button styles */
+.bancolombia-btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.bancolombia-btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.bancolombia-btn-primary:hover {
+  background-color: #e66b2f;
+}
+
+.bancolombia-btn-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+}
+
+.bancolombia-btn-secondary:hover {
+  background-color: #0a2942;
+}
+
+/* Form styles */
+.bancolombia-form-group {
+  margin-bottom: 1rem;
+}
+
+.bancolombia-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--color-secondary);
+  font-weight: 500;
+}
+
+.bancolombia-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--color-gray);
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.bancolombia-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+/* Modal styles */
+.bancolombia-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.bancolombia-modal-content {
+  background-color: var(--color-white);
+  border-radius: 8px;
+  padding: 2rem;
+  min-width: 400px;
+  max-width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Navigation styles */
+.bancolombia-nav {
+  background-color: var(--color-secondary);
+  padding: 1rem;
+}
+
+.bancolombia-nav-link {
+  color: var(--color-white);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.bancolombia-nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Utility classes */
+.bancolombia-text-center {
+  text-align: center;
+}
+
+.bancolombia-mt-1 { margin-top: 0.5rem; }
+.bancolombia-mt-2 { margin-top: 1rem; }
+.bancolombia-mt-3 { margin-top: 1.5rem; }
+.bancolombia-mb-1 { margin-bottom: 0.5rem; }
+.bancolombia-mb-2 { margin-bottom: 1rem; }
+.bancolombia-mb-3 { margin-bottom: 1.5rem; }

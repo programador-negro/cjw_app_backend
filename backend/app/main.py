@@ -6,41 +6,34 @@ from app.jwt_manager import create_token
 from os import getenv
 from app.managers.db_manager import DbManager
 from app.view_users import users_view
+from app.view_auth import auth_view
+from app.view_people import router as people_router
+from app.view_assignments import router as assignments_router
+from app.view_privileges import router as privileges_router
+from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI()  # instanciacion
-app.title = "Mi primera aplicacion con FastAPI"
+app = FastAPI()
+app.title = "CJW Application API"
 app.version = "1.0.0"
+
+# Configure CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],  # Frontend dev server
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+    expose_headers=["*"]
+)
+
+# Include routers
+
+app.include_router(auth_view)
 app.include_router(users_view)
+app.include_router(people_router)
+app.include_router(assignments_router)
+app.include_router(privileges_router)
 
-movies = [
-    {
-        "id": 1,
-        "title": "Avatar",
-        "overview": "En un exuberante planeta llamado Pandora viven los Na'vi, seres que ...",
-        "year": "2009",
-                "rating": 7.8,
-                "category": "Acción"
-    },
-	{
-		"id": 2,
-		"title": "Avatar 2, the way water",
-		"overview": "En un exuberante planeta llamado Pandora viven los Na'vi, seres que ...",
-		"year": "2009",
-		"rating": 7.8,
-		"category": "Acción"
-	}
-]
-
-
-# ----------------------------------------
-# LOGIN END POINT
-# POST METHOD
-# -----------
-@app.post('/login', tags=['auth'])
-def login(user: User):
-    if user.email == 'string' and user.password == 'string':
-        token: str = create_token(user.dict())
-        return JSONResponse(content = token, status_code = 200)
 
 # ----------------------------------------
 # MAIN END POINT

@@ -44,9 +44,10 @@ class Members(BaseModel):
 
 # Endpoint de autention en aplicacion
 class JWTBearer(HTTPBearer):
-	async def __call__(self, request: Request):
-		auth = await super().__call__(request) #  se llama a la funcion de la clase heredada
-		data = validate_token(auth.credentials) # se valida el token
-
-		if data['email'] != "string":
-			raise HTTPException(status_code=403, detail="Credenciales son invalidas")
+    async def __call__(self, request: Request):
+        auth = await super().__call__(request)  # se llama a la funcion de la clase heredada
+        data = validate_token(auth.credentials)  # se valida el token
+        
+        if not data.get('email'):  # verifica que el token contenga un email
+            raise HTTPException(status_code=403, detail="Token inválido: email no encontrado")
+        return data
